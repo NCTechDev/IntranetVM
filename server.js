@@ -1,7 +1,7 @@
 'use strict'
 
 const bodyParser = require('body-parser'),
-      express = require('express',)
+      express = require('express'),
       passport = require('passport'),
       session = require('express-session'),
       app = express()
