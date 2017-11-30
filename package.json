@@ -4,7 +4,8 @@
   "description": "Intranet da empresa Via Mondo",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,7 @@
   "bugs": {
     "url": "https://github.com/NCTechDev/IntranetVM/issues"
   },
-  "homepage": "https://github.com/NCTechDev/IntranetVM#readme"
+  "homepage": "https://github.com/NCTechDev/IntranetVM#readme",
+  "dependencies": {
+  }
 }
