@@ -1,0 +1,19 @@
+{
+  "name": "intranetvm",
+  "version": "1.0.0",
+  "description": "Intranet da empresa Via Mondo",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NCTechDev/IntranetVM.git"
+  },
+  "author": "Gustavo Martins e Matheus Vieira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NCTechDev/IntranetVM/issues"
+  },
+  "homepage": "https://github.com/NCTechDev/IntranetVM#readme"
+}
