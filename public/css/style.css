@@ -1,0 +1,69 @@
+html,
+body,
+div#conteudo {
+    width: 100%;
+    height: 100%;
+    background-color:#f0f0f0;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+/*Login e Register*/
+div.backgroundLogin {
+    background: url(../img/login.jpg) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100%;
+    padding: 25px 0;
+}
+section.login {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 350px;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: #575050;
+}
+section.login h1 {
+    color: #f0f0f0;
+    font-size: 30px;
+    font-weight: normal;
+}
+section.login div#divResult {
+    display: none;
+    font-size: 18px;
+}
+section.login form.form-users label {
+    color: #f0f0f0;
+    padding: 5px 0;
+    font-size: 15px;
+}
+section.login form.form-users label.radio-inline {
+    padding: 5px 20px;
+}
+section.login form.form-users .form-control {
+    height: inherit;
+    padding: 10px;
+    font-size: 20px;
+}
+section.login form.form-users input[type="text"],
+section.login form.form-users input[type="password"] {
+    margin-bottom: 18px;
+}
+section.login .btn {
+    width: 100%;
+    color: #faf9f9;
+    border: 2px solid #f8f6f6;
+    background: transparent;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bolder;
+    letter-spacing: 2px;
+}
+
+section.login .btn-access {
+    padding: 12px 0;
+}
+section.login .btn:hover {
+    border-bottom: 3px solid #fff;
+    color: #fff;
+}

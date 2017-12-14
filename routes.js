@@ -15,4 +15,10 @@ module.exports = function (app) {
         res.sendFile(path + 'index.html')
     })
 
+    app.route('/login')
+        .get(function (req,res
+        ){ 
+            res.sendFile(path + 'login.html')
+        })
+
 }
