@@ -67,3 +67,15 @@ section.login .btn:hover {
     border-bottom: 3px solid #fff;
     color: #fff;
 }
+
+div.jumbotron {
+    margin-bottom: 0px;
+}
+
+div.setores {
+    margin-top: 60px;
+}
+
+button.item-setores {
+    margin: 2px 0;
+}
