@@ -129,7 +129,7 @@ module.exports = function (app, passport) {
             if (error) { return next(error) }
             res.clearCookie('intranetvm')
             req.logout()
-            res.redirect('/login')
+            res.redirect('/')
         })
     })
         
