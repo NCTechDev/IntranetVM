@@ -117,7 +117,7 @@ module.exports = function (app, passport) {
     
     /* Fim das páginas de manuais */
 
-    /* Rota de Cadastro de Usuários */
+    /* Rota de Cadastro de Usuários - USADO VIA POSTMAN*/
     app.route('/register')
         .post(function (req, res) {
             controller.registro(req, res)
@@ -129,7 +129,7 @@ module.exports = function (app, passport) {
             if (error) { return next(error) }
             res.clearCookie('intranetvm')
             req.logout()
-            res.redirect('/')
+            res.redirect('/login')
         })
     })
         
