@@ -50,6 +50,7 @@ var service = {
                 }
             })
         }
+
         function dbPass(dbResult, cb) {
             if (bcrypt.compareSync(txtSenha_Acesso, dbResult.senha)){
                 //cb(null, dbResult)
@@ -59,7 +60,26 @@ var service = {
             }
         }
         
+    },
+
+    /*Operações de noticia*/
+    cadastrarNoticia: function (data, callback){
+        let dataAtual = new Date(),
+            sql = 'INSERT INTO noticia (data_publicacao, titulo, descricao, ' +
+                   'inicio, termino) VALUES (?, ?, ?, ?, ?)'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [dataAtual, data.txtTitulo, data.txtDescricao, data.txtData_Inicio, data.txtData_Fim],
+            function(error, result){
+                if (error){
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Cadastrado com sucesso!')
+                }
+            })
+
     }
+
 }   
 
 module.exports = service

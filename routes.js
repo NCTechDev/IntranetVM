@@ -53,8 +53,16 @@ module.exports = function (app, passport) {
         res.sendFile(path + 'usuarios/administrador/indexAdministrador.html')
     })
 
+    app.route('/cadastroNoticia')
+        .get(isLoggedIn, isAuthorized(['1']), function(req, res){
+            res.sendFile(path + 'usuarios/administrador/cadastrarNoticia.html')
+        })
+        .post(isLoggedIn, isAuthorized(['1']), function (req, res) {
+            controller.cadastrarNoticia(req, res )
+        })
+
     /* Nivel de Acesso 2 : RH   */
-    app.get('/rh', isLoggedIn, isAuthorized(['2']), function (req, res) {
+    app.get('/rh', isLoggedIn, isAuthorized(['1','2']), function (req, res) {
         res.sendFile(path + 'usuarios/rh/indexRh.html')
     })
 

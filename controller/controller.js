@@ -18,6 +18,12 @@ var controller = {
             else if (status == httpStatus.UNAUTHORIZED) callback(null, false, message)
             else callback(error)
         })
+    },
+
+    cadastrarNoticia: function (req, res){
+        service.cadastrarNoticia(req.body, function(error, status, message){
+            res.status(status).json({ message : message})
+        })
     }
 
 }
