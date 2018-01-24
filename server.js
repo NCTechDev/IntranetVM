@@ -5,6 +5,7 @@ const bodyParser = require('body-parser'),
       passport = require('passport'),
       session = require('express-session'),
       keySecret = require('./config/secret'),
+      multer = require('multer'),
       app = express()
 
 app.use(bodyParser.urlencoded({
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 app.use(express.static("public"));
+app.use(express.static("uploads"));
 app.use(session({
       name: 'intranetvm',
       secret: keySecret,

@@ -11,22 +11,17 @@ function validacaoRegistro(){
     //Mensagens de erros
     msgErrors = ""
     var dataAtual = new Date
-    var data = dataAtual.getFullYear() + "-" + dataAtual.getMonth() + 1 + "-" + dataAtual.getUTCDate()
+    var data = dataAtual.getFullYear() + "-" + dataAtual.getMonth() + 1 + "-" + dataAtual.getUTCDate()  
 
     // Campos vazios
     if ($('#txtTitulo').val() == "" ||
         $('#txtDescricao').val() == "" ||
         $('#txtData_Inicio').val() == '' ||
         $('#txtData_Fim').val() == '' ){
-        msgErrors = "Todos Campos são obrigatórios"
-    }
-
-    //Validando Datas
-    if ( data > $('#txtData_Fim').val() ){
+        msgErrors = "Todos Campos são obrigatórios, exceto imagens!"
+    }else if ( data > $('#txtData_Fim').val() ){
         msgErrors = "Data de término está antes da data atual!"
-    }
-
-    if ( $('#txtData_Inicio').val() > $('#txtData_Fim').val() ){
+    }else if ( $('#txtData_Inicio').val() > $('#txtData_Fim').val() ){
         msgErrors = "Data de término está antes da data inicio!"
     }
 
@@ -48,15 +43,25 @@ function enviarMsg(msg) {
 }
 
 function enviarDados(){
+
+    if($('#imgUpload').isEmpt){
+        $('#imgUpload').originalname = null;
+        console.log("aaa")
+    }
+
+    var formData = new FormData($('form')[0])
+
     if ($('#txtIdentificação').val() == 'editar'){
 
     } else {
         $.ajax({
             url: "/cadastroNoticia",
             type: "post",
-            dataType: "json",
-            async: true,
-            data: $("form").serialize(),
+            data: formData,
+            assync: false,
+            cache: false,
+            contentType: false,
+            processData: false,
             complete: function () {
                 setTimeout(function () {
                     $('#btn-loading').button('reset')

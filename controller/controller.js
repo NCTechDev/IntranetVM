@@ -20,9 +20,16 @@ var controller = {
         })
     },
 
-    cadastrarNoticia: function (req, res){
-        service.cadastrarNoticia(req.body, function(error, status, message){
+    //Noticias
+    cadastrarNoticia: function (newPath ,req, res){
+        service.cadastrarNoticia(newPath, req.body, function(error, status, message){
             res.status(status).json({ message : message})
+        })
+    },
+
+    retornarNoticias: function(res){
+        service.retornarNoticias(function(error, noticia){
+            res.status(httpStatus.OK).json({ noticia:noticia})
         })
     }
 

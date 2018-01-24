@@ -63,13 +63,13 @@ var service = {
     },
 
     /*Operações de noticia*/
-    cadastrarNoticia: function (data, callback){
+    cadastrarNoticia: function (newPath, data, callback){
         let dataAtual = new Date(),
             sql = 'INSERT INTO noticia (data_publicacao, titulo, descricao, ' +
-                   'inicio, termino) VALUES (?, ?, ?, ?, ?)'
+                   'inicio, termino, newPath) VALUES (?, ?, ?, ?, ?, ?)'
         // Query no Banco de Dados
         connection.query(sql,
-            [dataAtual, data.txtTitulo, data.txtDescricao, data.txtData_Inicio, data.txtData_Fim],
+            [dataAtual, data.txtTitulo, data.txtDescricao, data.txtData_Inicio, data.txtData_Fim, newPath],
             function(error, result){
                 if (error){
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
@@ -78,6 +78,19 @@ var service = {
                 }
             })
 
+    },
+
+    retornarNoticias: function(callback){
+        let sql = 'SELECT DATE_FORMAT(data_publicacao, "%d/%m/%Y") AS data_publicacao, ' +
+            'titulo, descricao, newPath FROM noticia ORDER BY idnoticia DESC'
+        //Query no banco de Dados
+        connection.query(sql, function (error, result) {
+            if(error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
     }
 
 }   

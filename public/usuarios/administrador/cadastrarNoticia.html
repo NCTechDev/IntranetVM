@@ -62,7 +62,7 @@
                     <div id="divResult" class="alert alert-dismissible text-center" role="alert">
                         <strong id="result"></strong>
                     </div>
-                    <form method="POST" class="form-users" action="" enctype="multipart/form-data">
+                    <form method="POST" class="form-users" name="form-users" enctype="multipart/form-data">
                         <!--Cadastrat-->
                         <input type="hidden" name="txtIdentificacao" id="txtIdentificacao" value="cadastrar">
                         <div class="row">
@@ -86,6 +86,11 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="form-group col-md-12">
+                                <input class="form-control" type="file" id="imgUpload" name="imgUpload">
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-12">
                                 <input type="submit" class="btn btn-success" id="btn-loading" name="btn-loading" data-loading-text="AGUARDE ..." value="Cadastrar">
                                 <input type="reset" class="btn btn-danger" value="Limpar campos">
@@ -102,6 +107,9 @@
         <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../../js/wow.min.js"></script>
         <script type="text/javascript" src="../../js/jquery.mask.min.js"></script>
+        <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../../bootstrap/js/bootstrap.js"></script>
         <!--Validando formulario-->
         <script type="text/javascript" src="../../script/usuarios/administrador/cadastrarNoticia.js"></script>
         <script>

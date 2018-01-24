@@ -2,6 +2,16 @@
 
 const path = __dirname + '/public/'
 const controller = require('./controller/controller')
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/img/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+const upload = multer({ storage });
 
 module.exports = function (app, passport) {
      
@@ -57,8 +67,15 @@ module.exports = function (app, passport) {
         .get(isLoggedIn, isAuthorized(['1']), function(req, res){
             res.sendFile(path + 'usuarios/administrador/cadastrarNoticia.html')
         })
-        .post(isLoggedIn, isAuthorized(['1']), function (req, res) {
-            controller.cadastrarNoticia(req, res )
+        .post(isLoggedIn, isAuthorized(['1']), upload.single('imgUpload'), function (req, res) {
+            if(req.file == null){
+                var newPath = "semimg"
+            }else {
+                var newPath = "img/uploads/" + req.file.originalname
+            }
+            
+            console.log(newPath);
+            controller.cadastrarNoticia(newPath, req, res)
         })
 
     /* Nivel de Acesso 2 : RH   */
@@ -79,6 +96,11 @@ module.exports = function (app, passport) {
         ){ 
             res.sendFile(path + 'vagas.html')
         })
+    
+    /*Noticias*/
+    app.get('/retornarnoticia', function (req, res) {
+        controller.retornarNoticias(res)
+    })
     
     /* Páginas de manuais */
     app.route('/manuaisvendas')
