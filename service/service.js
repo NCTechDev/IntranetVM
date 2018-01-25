@@ -81,7 +81,7 @@ var service = {
 
     retornarNoticias: function(callback){
         let sql = 'SELECT DATE_FORMAT(data_publicacao, "%d/%m/%Y") AS data_publicacao, ' +
-            'titulo, descricao, newPath FROM noticia WHERE inicio <= NOW() AND termino >= now() '+
+            'titulo, descricao, newPath FROM noticia WHERE inicio <= NOW() AND termino >= NOW() '+
             'ORDER BY idnoticia DESC'
         //Query no banco de Dados
         connection.query(sql, function (error, result) {
@@ -91,6 +91,53 @@ var service = {
                 callback(null, result)
             }
         })
+    },
+
+    retornarTableNoticia: function(callback){
+        let sql = 'SELECT DATE_FORMAT(data_publicacao, "%d/%m/%Y") AS data_publicacao, ' +
+            'idnoticia, titulo, descricao, DATE_FORMAT(inicio, "%d/%m/%Y") AS inicio,' +
+             'DATE_FORMAT(termino, "%d/%m/%Y") AS termino FROM noticia ORDER BY idnoticia DESC'
+        //*Query no banco de Dados
+        connection.query(sql, function(error, result){
+            if(error){
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente Novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+
+    retornarNoticiaPorID: function(idnoticia, callback){
+        let sql = 'SELECT DATE_FORMAT(data_publicacao, "%Y-%m-%d") AS data_publicacao, ' +
+            'idnoticia, titulo, descricao, DATE_FORMAT(inicio, "%Y-%m-%d") AS inicio,' +
+            'DATE_FORMAT(termino, "%Y-%m-%d") AS termino, newPath FROM noticia WHERE idnoticia = ?'
+
+        //Query no banco de dados
+        connection.query(sql,[idnoticia], function(error, result){
+            if(error){
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente Novamente.')
+            }else{
+                callback(null, result)
+            }
+        })
+    },
+
+    editarNoticia: function(newPath, data, callback){
+        console.log(data)
+        let sql = 'UPDATE noticia SET ' + 
+                'titulo=?, descricao=?, inicio=?, termino=?, newPath=?' + 
+                'WHERE idnoticia=?'
+        //Query no banco de dados
+        connection.query(sql, 
+            [data.txtTitulo, data.txtDescricao,data.txtData_Inicio, data.txtData_Fim, newPath, data.txtIdNoticia],
+            function(error, result){
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+                    console.log(error)
+                } else {
+                    callback(null, httpStatus.OK, 'Notícia atualizada com sucesso.')
+                }
+            })
     },
 
     /*Operações de Vagas*/

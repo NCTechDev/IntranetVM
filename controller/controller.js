@@ -33,6 +33,25 @@ var controller = {
         })
     },
 
+    retornarTableNoticia: function(res){
+        service.retornarTableNoticia(function(error, noticia){
+            res.status(httpStatus.OK).json({ noticia: noticia })
+        })
+    },
+
+    retornarNoticiaPorID: function(idnoticia, res){
+        service.retornarNoticiaPorID(idnoticia, function(error, noticia){
+            res.status(httpStatus.OK).json({ noticia : noticia})
+        })
+    },
+
+    editarNoticia: function(newPath, req, res){
+        console.log("chegou controller")
+        service.editarNoticia(newPath, req.body, function(error, status, message){
+            res.status(status).json({ message : message})
+        })
+    },
+
     //Vagas
 
     cadastrarVaga: function (req, res){

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="shortcut icon" href="../../img/icon.png">
+        <title>Intranet Grupo Via Mondo</title>
+        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <link rel="stylesheet" href="../../css/animate.css">
+        <script type="text/javascript" src="../../js/loader.js"></script>
+        <style>
+            #conteudo {
+                opacity: 0;
+            }
+    
+            textarea {
+                resize: none;
+            }
+        </style>
+
+    </head>
+    <body>
+    <div id="conteudo">
+        <!--Conteudo-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="/">
+                <img src="img/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><li class="nav-item">
+                        <a class="nav-link pull-right" href="/administrador">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cadastrar
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Noticias</a>
+                            <a class="dropdown-item" href="#">Manuais</a>
+                            <a class="dropdown-item" href="#">Downloads</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><li class="nav-item">
+                        <a class="nav-link pull-right" href="logout">Sair</a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </nav>
+        <!--Listar Noticia-->
+        <div class="container-fluid marginTopNav">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Listar notícias</h1>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table id="noticias" class="table table-hover table-condensed table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Publicação</th>
+                                    <th>Início</th>
+                                    <th>Fim</th>
+                                    <th>Título</th>
+                                    <th>Descrição</th>
+                                    <th>Editar</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyNoticias"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modal de Ediçao-->
+        <div id="modal-noticias" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Editar Noticias</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="divResult" class="alert alert-dismissible text-center" role="alert">
+                            <strong id="result"></strong>
+                        </div>
+                        <form id="form-users" class="form-horizontal" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                       <input type="text" class="form-control"  name="txtIdNoticia" id="txtIdNoticia" style="display:none;">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="txtTitulo">Titulo</label>
+                                    <input type="text" class="form-control"  name="txtTitulo" id="txtTitulo" autofocus>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="txtData_Inicio">Inicio</label>
+                                    <input type="date" name="txtData_Inicio" id="txtData_Inicio" class="form-control">
+                                </div>
+                                <div class="form-group cold-md-6">
+                                    <label for="txtData_Fim">Fim</label>
+                                    <input type="date" name="txtData_Fim" id="txtData_Fim" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="txtDescricao">Descrição</label>
+                                    <textarea class="form-control" name="txtDescricao" id="txtDescricao" rows="7"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <input type="text" class="form-control"  name="txtPathOld" id="txtPathOld" style="display:none;">
+                                    <input class="form-control" type="file" id="imgUpload" name="imgUpload">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <input type="button" class="btn btn-success" id="btn-loading" onclick="validacaoEdicao()"name="btn-loading" value="Editar">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </form>
+                        <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+                        <script type="text/javascript" src="../../script/usuarios/administrador/editarNoticias.js"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Fim do Modal-->
+    </div>
+
+        <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../../js/wow.min.js"></script>
+        <script type="text/javascript" src="../../js/jquery.mask.min.js"></script>
+        <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../../bootstrap/js/bootstrap.js"></script>
+        <!--Validando formulario-->
+        <script type="text/javascript" src="../../script/usuarios/administrador/retornarTabelaNoticia.js"></script>
+        <script type="text/javascript" src="../../script/usuarios/administrador/editarNoticias.js"></script>
+        <script>
+            // Loader
+            loading();
+            // Animation WOW
+            new WOW().init();
+        </script>
+    </body>
+</html>

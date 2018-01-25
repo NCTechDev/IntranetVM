@@ -63,6 +63,12 @@ module.exports = function (app, passport) {
         res.sendFile(path + 'usuarios/administrador/indexAdministrador.html')
     })
 
+    /*Listagens*/
+
+    app.get('/listarNoticias', isLoggedIn, isAuthorized(['1']), function (req, res){
+        res.sendFile(path + 'usuarios/administrador/listarNoticias.html')
+    })
+
     /*Cadastro Noticias*/
 
     app.route('/cadastroNoticia')
@@ -75,11 +81,31 @@ module.exports = function (app, passport) {
             }else {
                 var newPath = "img/uploads/" + req.file.originalname
             }
-            
-            console.log(newPath);
             controller.cadastrarNoticia(newPath, req, res)
         })
 
+    /*Edção de noticias */
+
+    app.get('/retornartablenoticia', isLoggedIn, isAuthorized(['1']), function (req, res){
+        controller.retornarTableNoticia(res)
+    })
+
+    app.get('/retornarNoticiaPorId/:idnoticia', isLoggedIn, isAuthorized(['1']), function(req, res){
+        let idnoticia = req.params.idnoticia;
+        console.log(idnoticia)
+        controller.retornarNoticiaPorID(idnoticia, res)
+    })
+
+    app.post('/editarNoticia', isLoggedIn, isAuthorized(['1']), upload.single('imgUpload'), function(req, res){
+        if(req.file == null){
+            var newPath = req.body.txtPathOld
+        } else{
+            var newPath = "img/uploads/" + req.file.originalname
+        }
+
+        console.log("chegou")
+        controller.editarNoticia(newPath, req, res)
+    })
     /* Nivel de Acesso 2 : RH   */
 
     /*Home RH*/
