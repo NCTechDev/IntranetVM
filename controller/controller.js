@@ -31,7 +31,21 @@ var controller = {
         service.retornarNoticias(function(error, noticia){
             res.status(httpStatus.OK).json({ noticia:noticia})
         })
-    }
+    },
+
+    //Vagas
+
+    cadastrarVaga: function (req, res){
+        service.cadastrarVaga(req.body, function(error, status, message){
+            res.status(status).json({message : message})
+        })
+    },
+
+    retornarVagas: function(res){
+        service.retornarVagas(function(error, vaga){
+            res.status(httpStatus.OK).json({ vaga:vaga})
+        })
+    },
 
 }
 

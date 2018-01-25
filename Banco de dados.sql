@@ -24,3 +24,14 @@ CREATE TABLE noticia (
         
 		PRIMARY KEY(idnoticia)
 );
+
+CREATE TABLE vaga (
+
+		idvaga INTEGER NOT NULL AUTO_INCREMENT,
+		data_publicacao TIMESTAMP NOT NULL,
+		titulo VARCHAR(100) NOT NULL,
+		descricao LONGTEXT NOT NULL,
+		estado VARCHAR(10) NOT NULL,
+
+		PRIMARY KEY(idvaga)
+);

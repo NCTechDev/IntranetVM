@@ -13,7 +13,6 @@ jQuery(document).ready(function() {
 function criarTabela(noticia){
     for (index = 0; index < noticia.length; index++) {
 
-        console.log(noticia)
         if(noticia[index].newPath == 'semimg'){
             newNotice = $("<div class='panel panel-default'>" + 
             "<div class='panel-heading icon'><i class='glyphicon glyphicon-envelope'></i></div>" +
@@ -21,7 +20,8 @@ function criarTabela(noticia){
             "<div class='panel-body'><textarea class='form-control' rows='10' disabled>" + noticia[index].descricao + "</textarea></div>" +
             "<ul class='list-group'>" +
             "<li class='list-group-item'>Data da postagem: " + noticia[index].data_publicacao + "</li>" +
-            "</ul>")
+            "</ul>"+
+            "<br/>")
         }else{
             newNotice = $("<div class='panel panel-default'>" + 
             "<div class='panel-heading icon'><i class='glyphicon glyphicon-envelope'></i></div>" +
@@ -30,7 +30,8 @@ function criarTabela(noticia){
             "<div align='center'><img src = '" + noticia[index].newPath + "' height='500' width='500'class='img-thumbnail m-x-auto d-block '/></div>"+
             "<ul class='list-group'>" +
             "<li class='list-group-item'>Data da postagem: " + noticia[index].data_publicacao + "</li>" +
-            "</ul>")
+            "</ul>"+
+            "<br/>")
         }
         
         appendTable(newNotice)

@@ -44,11 +44,6 @@ function enviarMsg(msg) {
 
 function enviarDados(){
 
-    if($('#imgUpload').isEmpt){
-        $('#imgUpload').originalname = null;
-        console.log("aaa")
-    }
-
     var formData = new FormData($('form')[0])
 
     if ($('#txtIdentificação').val() == 'editar'){

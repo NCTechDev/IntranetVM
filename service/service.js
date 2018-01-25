@@ -77,12 +77,12 @@ var service = {
                     callback(null, httpStatus.OK, 'Cadastrado com sucesso!')
                 }
             })
-
     },
 
     retornarNoticias: function(callback){
         let sql = 'SELECT DATE_FORMAT(data_publicacao, "%d/%m/%Y") AS data_publicacao, ' +
-            'titulo, descricao, newPath FROM noticia ORDER BY idnoticia DESC'
+            'titulo, descricao, newPath FROM noticia WHERE inicio <= NOW() AND termino >= now() '+
+            'ORDER BY idnoticia DESC'
         //Query no banco de Dados
         connection.query(sql, function (error, result) {
             if(error) {
@@ -91,7 +91,36 @@ var service = {
                 callback(null, result)
             }
         })
-    }
+    },
+
+    /*Operações de Vagas*/
+    cadastrarVaga: function (data, callback){
+        let dataAtual = new Date(),
+            estado = 'aberto',
+            sql = 'INSERT INTO vaga (data_publicacao, titulo, descricao, ' +
+                    'estado) VALUES (?, ?, ?, ?)'
+        connection.query(sql,
+            [dataAtual, data.txtTitulo, data.txtDescricao, estado],
+            function(error, result){
+                if (error){
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Cadastrado com sucesso!')
+                }
+            })
+    },
+
+    retornarVagas: function(callback){
+        let sql = 'SELECT titulo, descricao FROM vaga WHERE estado = "aberto"' 
+        //Query no banco de Dados
+        connection.query(sql, function (error, result) {
+            if(error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
 
 }   
 

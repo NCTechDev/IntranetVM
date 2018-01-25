@@ -63,6 +63,8 @@ module.exports = function (app, passport) {
         res.sendFile(path + 'usuarios/administrador/indexAdministrador.html')
     })
 
+    /*Cadastro Noticias*/
+
     app.route('/cadastroNoticia')
         .get(isLoggedIn, isAuthorized(['1']), function(req, res){
             res.sendFile(path + 'usuarios/administrador/cadastrarNoticia.html')
@@ -79,10 +81,19 @@ module.exports = function (app, passport) {
         })
 
     /* Nivel de Acesso 2 : RH   */
+
+    /*Home RH*/
     app.get('/rh', isLoggedIn, isAuthorized(['1','2']), function (req, res) {
         res.sendFile(path + 'usuarios/rh/indexRh.html')
     })
 
+    /*Cadastro Vagas*/
+
+    app.post('/cadastrarVaga', isLoggedIn, isAuthorized(['1','2']), function (req, res){
+        controller.cadastrarVaga(req, res)
+    })
+
+    /*Páginas*/
     /* Página de Downloads */
     app.route('/downloads')
         .get(function (req,res
@@ -97,10 +108,16 @@ module.exports = function (app, passport) {
             res.sendFile(path + 'vagas.html')
         })
     
-    /*Noticias*/
+    /*Retorno de Noticias e vagas*/
     app.get('/retornarnoticia', function (req, res) {
         controller.retornarNoticias(res)
     })
+
+    app.get('/retornarvaga', function (req, res) {
+        controller.retornarVagas(res)
+    })
+
+
     
     /* Páginas de manuais */
     app.route('/manuaisvendas')
