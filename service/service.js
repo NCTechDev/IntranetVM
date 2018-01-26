@@ -1,4 +1,3 @@
-
 'use strict'
 
 const async = require('async'),
@@ -53,7 +52,6 @@ var service = {
 
         function dbPass(dbResult, cb) {
             if (bcrypt.compareSync(txtSenha_Acesso, dbResult.senha)){
-                //cb(null, dbResult)
                 cb(null, httpStatus.OK, 'Login efetudado com sucesso.', dbResult)
             } else {
                 cb(new Error(), httpStatus.UNAUTHORIZED, 'Senha inválida')
@@ -111,7 +109,6 @@ var service = {
         let sql = 'SELECT DATE_FORMAT(data_publicacao, "%Y-%m-%d") AS data_publicacao, ' +
             'idnoticia, titulo, descricao, DATE_FORMAT(inicio, "%Y-%m-%d") AS inicio,' +
             'DATE_FORMAT(termino, "%Y-%m-%d") AS termino, newPath FROM noticia WHERE idnoticia = ?'
-
         //Query no banco de dados
         connection.query(sql,[idnoticia], function(error, result){
             if(error){
@@ -123,7 +120,6 @@ var service = {
     },
 
     editarNoticia: function(newPath, data, callback){
-        console.log(data)
         let sql = 'UPDATE noticia SET ' + 
                 'titulo=?, descricao=?, inicio=?, termino=?, newPath=?' + 
                 'WHERE idnoticia=?'
@@ -133,11 +129,22 @@ var service = {
             function(error, result){
                 if (error) {
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
-                    console.log(error)
                 } else {
-                    callback(null, httpStatus.OK, 'Notícia atualizada com sucesso.')
+                    callback(null, httpStatus.OK, 'Notícia atualizada com sucesso!')
                 }
             })
+    },
+
+    excluirNoticia: function (data, callback){
+        let sql = 'DELETE FROM noticia WHERE idnoticia = ?'
+        //Query no banco de dados
+        connection.query(sql,[data.id], function(error, result){
+            if(error){
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+            }else{
+                callback(null, httpStatus.OK, 'Notícia excluída com sucesso!')
+            }
+        })
     },
 
     /*Operações de Vagas*/
@@ -152,13 +159,13 @@ var service = {
                 if (error){
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
                 } else {
-                    callback(null, httpStatus.OK, 'Cadastrado com sucesso!')
+                    callback(null, httpStatus.OK, 'Vaga cadastrada com sucesso!')
                 }
             })
     },
 
     retornarVagas: function(callback){
-        let sql = 'SELECT titulo, descricao FROM vaga WHERE estado = "aberto"' 
+        let sql = 'SELECT titulo, descricao FROM vaga WHERE estado = "aberto" ORDER BY idvaga DESC' 
         //Query no banco de Dados
         connection.query(sql, function (error, result) {
             if(error) {

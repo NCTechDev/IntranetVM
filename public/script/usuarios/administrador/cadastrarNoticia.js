@@ -63,7 +63,12 @@ function enviarDados(){
                 }, 1500)
             }
         }).done(function (callback) {
-            window.location = "/administrador"
+            bootbox.alert({
+                message: callback.message,
+                callback: function(){
+                    location.reload()
+                }
+            })
         }).fail(function (callback) {
             jsonCb = JSON.parse(callback.responseText)
             enviarMsg(jsonCb.message)

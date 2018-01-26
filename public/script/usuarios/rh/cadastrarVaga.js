@@ -49,8 +49,13 @@ function enviarDados(){
                 $('#btn-loading').button('reset')
             }, 1500)
         }
-    }).done(function(){
-        window.location = "/rh"
+    }).done(function(callback){
+        bootbox.alert({
+            message: callback.message,
+            callback: function(){
+                location.reload()
+            }
+        })
     }).fail(function (callback){
         callbackMsg = JSON.parse(callback.responseText)
         enviarMsg(callbackMsg.info)

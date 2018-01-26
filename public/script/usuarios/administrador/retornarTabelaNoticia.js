@@ -23,7 +23,7 @@ function criarTable(noticia) {
                 "<td>" + noticia[index].titulo + "</td>" +
                 "<td>" + noticia[index].descricao + "</td>" +
                 "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-noticias' role='button' onclick='setarValores(" + JSON.stringify(noticia[index].idnoticia) + ");'>Editar</button></td>" +
-                "<td><button type='button' class='btn btn-danger' onclick='excluirtablenoticia(" + JSON.stringify(idnoticia) + "); return false;'>Excluir</button></td>" +
+                "<td><button type='button' class='btn btn-danger' onclick='excluirNoticia(" + JSON.stringify(idnoticia) + "); return false;'>Excluir</button></td>" +
                 "</tr>")
             appendTable(newTrItem)
         }

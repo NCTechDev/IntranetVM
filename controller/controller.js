@@ -46,9 +46,14 @@ var controller = {
     },
 
     editarNoticia: function(newPath, req, res){
-        console.log("chegou controller")
         service.editarNoticia(newPath, req.body, function(error, status, message){
             res.status(status).json({ message : message})
+        })
+    },
+
+    excluirNoticia: function(req, res){
+        service.excluirNoticia(req.body, function(error, status, message){
+            res.status(status).json({ message: message})
         })
     },
 

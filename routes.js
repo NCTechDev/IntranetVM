@@ -92,7 +92,6 @@ module.exports = function (app, passport) {
 
     app.get('/retornarNoticiaPorId/:idnoticia', isLoggedIn, isAuthorized(['1']), function(req, res){
         let idnoticia = req.params.idnoticia;
-        console.log(idnoticia)
         controller.retornarNoticiaPorID(idnoticia, res)
     })
 
@@ -102,9 +101,12 @@ module.exports = function (app, passport) {
         } else{
             var newPath = "img/uploads/" + req.file.originalname
         }
-
-        console.log("chegou")
         controller.editarNoticia(newPath, req, res)
+    })
+
+    /*Exclusão de noticias */
+    app.post('/excluirNoticia', isLoggedIn, isAuthorized(['1']), function (req,res){
+        controller.excluirNoticia(req,res)
     })
     /* Nivel de Acesso 2 : RH   */
 
