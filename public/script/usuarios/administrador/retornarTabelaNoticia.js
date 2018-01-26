@@ -12,10 +12,12 @@ jQuery(document).ready(function () {
 
 function criarTable(noticia) {
     // Limpa table
+    
     $("#tbodyNoticias tr").remove()
     if (noticia.length) {
         for (index = 0; index < noticia.length; index++) {
-            var idnoticia = { id: noticia[index].idnoticia }
+            var idnoticia = noticia[index].idnoticia
+            var newPath = noticia[index].newPath
             newTrItem = $("<tr>" +
                 "<td>" + noticia[index].data_publicacao + "</td>" +
                 "<td>" + noticia[index].inicio + "</td>" +
@@ -23,7 +25,7 @@ function criarTable(noticia) {
                 "<td>" + noticia[index].titulo + "</td>" +
                 "<td>" + noticia[index].descricao + "</td>" +
                 "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-noticias' role='button' onclick='setarValores(" + JSON.stringify(noticia[index].idnoticia) + ");'>Editar</button></td>" +
-                "<td><button type='button' class='btn btn-danger' onclick='excluirNoticia(" + JSON.stringify(idnoticia) + "); return false;'>Excluir</button></td>" +
+                "<td><button type='button' class='btn btn-danger' onclick='excluirNoticia(" + JSON.stringify(idnoticia) + ", " + JSON.stringify(newPath) +"); return false;'>Excluir</button></td>" +
                 "</tr>")
             appendTable(newTrItem)
         }

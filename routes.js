@@ -1,6 +1,7 @@
 'use strict'
 const path = __dirname + '/public/'
 const controller = require('./controller/controller')
+const fs = require('fs')
 const multer = require('multer')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -10,7 +11,16 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-const upload = multer({ storage });
+const upload = multer({ 
+    storage : storage,
+    fileFilter: function (req, file, cb) {
+        if (file.mimetype !== 'image/png' && file.mimetype !== 'image/gif' && file.mimetype !== 'image/jpeg'
+            && file.mimetype !== 'image/jpg') {
+            return cb(null, false, new Error('I don\'t have a clue!'));
+        }
+        cb(null, true);
+      }
+ });
 
 module.exports = function (app, passport) {
      
@@ -98,13 +108,21 @@ module.exports = function (app, passport) {
         if(req.file == null){
             var newPath = req.body.txtPathOld
         } else{
-            var newPath = "img/uploads/" + req.file.originalname
+            if(req.body.txtPathOld != 'semimg'){
+                var pathImg = 'public/' + req.body.txtPathOld
+                fs.unlink(pathImg)
+            }
+            var newPath = "img/uploads/" + req.file.originalname  
         }
         controller.editarNoticia(newPath, req, res)
     })
 
     /*Exclusão de noticias */
     app.post('/excluirNoticia', isLoggedIn, isAuthorized(['1']), function (req,res){
+        if(req.body.newPath != 'semimg'){
+            var pathImg = 'public/' + req.body.newPath
+            fs.unlink(pathImg)
+        }
         controller.excluirNoticia(req,res)
     })
     /* Nivel de Acesso 2 : RH   */

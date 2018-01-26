@@ -18,10 +18,12 @@ function validacaoEdicao(){
         $('#txtData_Inicio').val() == '' ||
         $('#txtData_Fim').val() == '' ){
         msgErrors = "Todos Campos são obrigatórios, exceto imagens!"
-    }else if ( data > $('#txtData_Fim').val() ){
-        msgErrors = "Data de término está antes da data atual!"
+    }else if ( data >= $('#txtData_Fim').val() ){
+        msgErrors = "Data de término deve ser superior a data atual!"
     }else if ( $('#txtData_Inicio').val() > $('#txtData_Fim').val() ){
-        msgErrors = "Data de término está antes da data inicio!"
+        msgErrors = "Data de término deve ser superior a data atual!"
+    }else if($('#txtData_Inicio').val() == $('#txtData_Fim').val() ){
+        msgErrors = "Data de término deve ser diferente da data inicio!"
     }
 
     if (msgErrors) {

@@ -1,4 +1,4 @@
-function excluirNoticia(idnoticia){
+function excluirNoticia(idnoticia, newPath){
     bootbox.confirm({
         message: "Deseja excluir a noticia ?",
         buttons: {
@@ -14,12 +14,14 @@ function excluirNoticia(idnoticia){
         },      
         callback: function (result){
             if (result == true){
+                var dados = {idnoticia : idnoticia, newPath: newPath}
+
                 $.ajax({
                     url: "/excluirNoticia",
                     type: "post",
                     dataType: "json",
                     assync: true,
-                    data: idnoticia
+                    data: dados
                 }).done(function (callback){
                     bootbox.alert({
                         message: callback.message,

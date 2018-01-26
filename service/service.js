@@ -93,7 +93,7 @@ var service = {
 
     retornarTableNoticia: function(callback){
         let sql = 'SELECT DATE_FORMAT(data_publicacao, "%d/%m/%Y") AS data_publicacao, ' +
-            'idnoticia, titulo, descricao, DATE_FORMAT(inicio, "%d/%m/%Y") AS inicio,' +
+            'idnoticia, titulo, descricao, DATE_FORMAT(inicio, "%d/%m/%Y") AS inicio, newPath, ' +
              'DATE_FORMAT(termino, "%d/%m/%Y") AS termino FROM noticia ORDER BY idnoticia DESC'
         //*Query no banco de Dados
         connection.query(sql, function(error, result){
@@ -138,7 +138,7 @@ var service = {
     excluirNoticia: function (data, callback){
         let sql = 'DELETE FROM noticia WHERE idnoticia = ?'
         //Query no banco de dados
-        connection.query(sql,[data.id], function(error, result){
+        connection.query(sql,[data.idnoticia], function(error, result){
             if(error){
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
             }else{
