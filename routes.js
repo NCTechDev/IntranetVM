@@ -1,5 +1,4 @@
 'use strict'
-
 const path = __dirname + '/public/'
 const controller = require('./controller/controller')
 const multer = require('multer')
@@ -115,10 +114,36 @@ module.exports = function (app, passport) {
         res.sendFile(path + 'usuarios/rh/indexRh.html')
     })
 
+    /* Listagens */
+
+    app.get('/listarVagas', isLoggedIn, isAuthorized(['1','2']), function (req, res){
+        res.sendFile(path + 'usuarios/rh/listarVagas.html')
+    })
+
     /*Cadastro Vagas*/
 
     app.post('/cadastrarVaga', isLoggedIn, isAuthorized(['1','2']), function (req, res){
         controller.cadastrarVaga(req, res)
+    })
+
+    /*Edição de vagas */
+
+    app.get('/retornartablevaga', isLoggedIn, isAuthorized(['1','2']), function (req, res){
+        controller.retornarTableVaga(res)
+    })
+
+    app.get('/retornarVagaPorId/:idvaga', isLoggedIn, isAuthorized(['1','2']), function(req, res){
+        let idvaga = req.params.idvaga;
+        controller.retornarVagaPorID(idvaga, res)
+    })
+
+    app.post('/editarVaga', isLoggedIn, isAuthorized(['1','2']), function(req, res){
+        controller.editarVaga(req, res)
+    })
+
+    app.post('/mudarEstado/:idvaga', isLoggedIn, isAuthorized(['1','2']), function(req, res){
+        let idvaga = req.params.idvaga;
+        controller.mudarEstado(idvaga, req, res)
     })
 
     /*Páginas*/

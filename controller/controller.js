@@ -71,6 +71,30 @@ var controller = {
         })
     },
 
+    retornarTableVaga: function(res){
+        service.retornarTableVaga(function(error, vaga){
+            res.status(httpStatus.OK).json({ vaga: vaga })
+        })
+    },
+
+    retornarVagaPorID: function(idvaga, res){
+        service.retornarVagaPorID(idvaga, function(error, vaga){
+            res.status(httpStatus.OK).json({ vaga : vaga})
+        })
+    },
+
+    editarVaga: function(req, res){
+        service.editarVaga(req.body, function(error, status, message){
+            res.status(status).json({ message : message})
+        })
+    },
+
+    mudarEstado: function(idvaga, req, res){
+        service.mudarEstado(idvaga, req.body, function(error, status, message){
+            res.status(status).json({ message : message})
+        })
+    }
+
 }
 
 module.exports = controller

@@ -176,6 +176,66 @@ var service = {
         })
     },
 
+    retornarTableVaga: function(callback){
+        let sql = 'SELECT DATE_FORMAT(data_publicacao, "%d/%m/%Y") AS data_publicacao, ' +
+            'idvaga, titulo, descricao, estado ' +
+            'FROM vaga ORDER BY idvaga DESC'
+        //*Query no banco de Dados
+        connection.query(sql, function(error, result){
+            if(error){
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente Novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+
+    retornarVagaPorID: function(idvaga, callback){
+        let sql = 'SELECT DATE_FORMAT(data_publicacao, "%Y-%m-%d") AS data_publicacao, ' +
+            'titulo, descricao' +
+            ' FROM vaga WHERE idvaga = ?'
+        //Query no banco de dados
+        connection.query(sql,[idvaga], function(error, result){
+            if(error){
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente Novamente.')
+            }else{
+                callback(null, result)
+            }
+        })
+    },
+
+    editarVaga: function( data, callback){
+        let sql = 'UPDATE vaga SET ' + 
+                'titulo=?, descricao=?' + 
+                'WHERE idvaga=?'
+        //Query no banco de dados
+        connection.query(sql, 
+            [data.txtTitulo, data.txtDescricao, data.txtIdVaga],
+            function(error, result){
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Vaga atualizada com sucesso!')
+                }
+            })
+    },
+
+    mudarEstado: function(idvaga, data, callback){
+        let sql = 'UPDATE vaga SET ' +
+                'estado=? ' +
+                'WHERE idvaga=?'
+        //Query no banco de dados
+        connection.query(sql, 
+            [data.newEstado, idvaga],
+            function(error, result){
+                if (error) {
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Estado atualizado com sucesso!')
+                }
+            })
+    }
+
 }   
 
 module.exports = service
