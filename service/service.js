@@ -121,11 +121,11 @@ var service = {
 
     editarNoticia: function(newPath, data, callback){
         let sql = 'UPDATE noticia SET ' + 
-                'titulo=?, descricao=?, inicio=?, termino=?, newPath=?' + 
+                'data_publicacao=?, titulo=?, descricao=?, inicio=?, termino=?, newPath=?' + 
                 'WHERE idnoticia=?'
         //Query no banco de dados
         connection.query(sql, 
-            [data.txtTitulo, data.txtDescricao,data.txtData_Inicio, data.txtData_Fim, newPath, data.txtIdNoticia],
+            [data.txtData_Publicacao, data.txtTitulo, data.txtDescricao,data.txtData_Inicio, data.txtData_Fim, newPath, data.txtIdNoticia],
             function(error, result){
                 if (error) {
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
@@ -143,6 +143,46 @@ var service = {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
             }else{
                 callback(null, httpStatus.OK, 'Notícia excluída com sucesso!')
+            }
+        })
+    },
+
+    /*Operações Download */
+
+    cadastrarDownload: function (newPath, data, callback){
+        let sql = 'INSERT INTO download (titulo, newPath) VALUES (?, ?)'
+        // Query no Banco de Dados
+        connection.query(sql,
+            [data.txtTitulo, newPath],
+            function(error, result){
+                if (error){
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Cadastrado com sucesso!')
+                }
+            })
+    },
+
+    retornarDownload: function(callback){
+        let sql = 'SELECT iddownload, titulo, newPath FROM download ORDER BY iddownload' 
+        //Query no banco de Dados
+        connection.query(sql, function (error, result) {
+            if(error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+
+    excluirDownload: function (data, callback){
+        let sql = 'DELETE FROM download WHERE iddownload =?'
+        //Query no banco de dados
+        connection.query(sql,[data.iddownload], function(error, result){
+            if(error){
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+            }else{
+                callback(null, httpStatus.OK, 'Download excluído com sucesso!')
             }
         })
     },

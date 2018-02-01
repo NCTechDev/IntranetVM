@@ -4,7 +4,7 @@ jQuery(document).ready(function () {
         url: "/retornartablenoticia",
         type: "get",
         dataType: "json",
-        async: true,
+        assync: true,
     }).done(function (callback) {
         criarTable(callback.noticia)
     })
@@ -12,7 +12,6 @@ jQuery(document).ready(function () {
 
 function criarTable(noticia) {
     // Limpa table
-    
     $("#tbodyNoticias tr").remove()
     if (noticia.length) {
         for (index = 0; index < noticia.length; index++) {

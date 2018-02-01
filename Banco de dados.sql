@@ -35,3 +35,13 @@ CREATE TABLE vaga (
 
 		PRIMARY KEY(idvaga)
 );
+
+
+CREATE TABLE download (
+	
+	iddownload INTEGER NOT  NULL AUTO_INCREMENT,
+	titulo VARCHAR(100) NOT NULL,
+	newPath VARCHAR(100),
+        
+	PRIMARY KEY(iddownload)
+);

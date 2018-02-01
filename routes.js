@@ -11,6 +11,16 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
+
+const storageDown = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/downs/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
 const upload = multer({ 
     storage : storage,
     fileFilter: function (req, file, cb) {
@@ -21,6 +31,8 @@ const upload = multer({
         cb(null, true);
       }
  });
+
+const uploadDown = multer({ storage : storageDown });
 
 module.exports = function (app, passport) {
      
@@ -78,6 +90,9 @@ module.exports = function (app, passport) {
         res.sendFile(path + 'usuarios/administrador/listarNoticias.html')
     })
 
+    app.get('/listarDownloads', isLoggedIn, isAuthorized(['1']), function (req, res){
+        res.sendFile(path + 'usuarios/administrador/listarDownloads.html')
+    })
     /*Cadastro Noticias*/
 
     app.route('/cadastroNoticia')
@@ -125,6 +140,25 @@ module.exports = function (app, passport) {
         }
         controller.excluirNoticia(req,res)
     })
+
+    /* Cadastro de downloads */
+
+    app.route('/cadastroDownload')
+        .get(isLoggedIn, isAuthorized(['1']), function(req, res){
+            res.sendFile(path + 'usuarios/administrador/cadastrarDownload.html')
+        }).post(isLoggedIn, isAuthorized(['1']), uploadDown.single('arqUpload'), function (req, res) {
+            var newPath = "downs/uploads/" + req.file.originalname
+            controller.cadastrarDownload(newPath, req, res)
+        })
+    
+    /* Exclusão de downloads */
+
+    app.post('/excluirDownload', isLoggedIn, isAuthorized(['1']), function (req,res){
+        var pathDown = 'public/' + req.body.newPath
+        fs.unlink(pathDown)
+        controller.excluirDownload(req,res)
+    })
+    
     /* Nivel de Acesso 2 : RH   */
 
     /*Home RH*/
@@ -166,10 +200,10 @@ module.exports = function (app, passport) {
 
     /*Páginas*/
     /* Página de Downloads */
-    app.route('/downloads')
+    app.route('/downloadsPag')
         .get(function (req,res
         ){ 
-            res.sendFile(path + 'downloads.html')
+            res.sendFile(path + 'downloadsPag.html')
         })
     
     /* Página de Vagas*/
@@ -179,13 +213,17 @@ module.exports = function (app, passport) {
             res.sendFile(path + 'vagas.html')
         })
     
-    /*Retorno de Noticias e vagas*/
+    /*Retorno de Noticias, vagas e downloads*/
     app.get('/retornarnoticia', function (req, res) {
         controller.retornarNoticias(res)
     })
 
     app.get('/retornarvaga', function (req, res) {
         controller.retornarVagas(res)
+    })
+
+    app.get('/retornardownload', function (req, res) {
+        controller.retornarDownload(res)
     })
 
 

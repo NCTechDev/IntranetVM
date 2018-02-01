@@ -10,8 +10,12 @@ jQuery(document).ready(function (){
 function validacaoRegistro(){
     //Mensagens de erros
     msgErrors = ""
-    var dataAtual = new Date
-    var data = dataAtual.getFullYear() + "-" + dataAtual.getMonth() + 1 + "-" + dataAtual.getUTCDate()  
+    var dataAtual = new Date();
+    
+    var d = dataAtual.getDate();
+    var m = dataAtual.getMonth() + 1;
+    var y = dataAtual.getFullYear();
+    var data = (d <= 9 ? '0' + d : d) + '-' + (m <= 9 ? '0' + m : m) + '-' + y;
 
     // Campos vazios
     if ($('#txtTitulo').val() == "" ||
@@ -22,7 +26,7 @@ function validacaoRegistro(){
     }else if ( data >= $('#txtData_Fim').val() ){
         msgErrors = "Data de término deve ser superior a data atual!"
     }else if ( $('#txtData_Inicio').val() > $('#txtData_Fim').val() ){
-        msgErrors = "Data de término deve ser superior a data atual!"
+        msgErrors = "Data de término deve ser superior a data de inicio!"
     }else if($('#txtData_Inicio').val() == $('#txtData_Fim').val() ){
         msgErrors = "Data de término deve ser diferente da data inicio!"
     }

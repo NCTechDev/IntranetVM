@@ -9,8 +9,12 @@ jQuery(document).ready(function (){
 function validacaoEdicao(){
     //Mensagens de erros
     msgErrors = ""
-    var dataAtual = new Date
-    var data = dataAtual.getFullYear() + "-" + dataAtual.getMonth() + 1 + "-" + dataAtual.getUTCDate()  
+    var dataAtual = new Date();
+
+    var d = dataAtual.getDate();
+    var m = dataAtual.getMonth() + 1;
+    var y = dataAtual.getFullYear();
+    var data = (d <= 9 ? '0' + d : d) + '-' + (m <= 9 ? '0' + m : m) + '-' + y;
 
     // Campos vazios
     if ($('#txtTitulo').val() == "" ||
@@ -18,12 +22,10 @@ function validacaoEdicao(){
         $('#txtData_Inicio').val() == '' ||
         $('#txtData_Fim').val() == '' ){
         msgErrors = "Todos Campos são obrigatórios, exceto imagens!"
-    }else if ( data >= $('#txtData_Fim').val() ){
-        msgErrors = "Data de término deve ser superior a data atual!"
+    }else if ( data > $('#txtData_Fim').val() ){
+        msgErrors = "Data de término deve ser superior ou igual a data atual!"
     }else if ( $('#txtData_Inicio').val() > $('#txtData_Fim').val() ){
-        msgErrors = "Data de término deve ser superior a data atual!"
-    }else if($('#txtData_Inicio').val() == $('#txtData_Fim').val() ){
-        msgErrors = "Data de término deve ser diferente da data inicio!"
+        msgErrors = "Data de término deve ser superior a data de inicio!"
     }
 
     if (msgErrors) {
@@ -55,6 +57,7 @@ function setarValores(idnoticia){
         $("#txtData_Fim").val(callback.noticia[0].termino);
         $("#txtDescricao").val(callback.noticia[0].descricao)
         $("#txtPathOld").val(callback.noticia[0].newPath)
+        $("#txtData_Publicacao").val(callback.noticia[0].data_publicacao)
     })
 }
 

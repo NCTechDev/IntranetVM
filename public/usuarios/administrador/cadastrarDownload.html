@@ -61,45 +61,27 @@
                 </ul>
             </div>
         </nav>
-        <!--Cadastro de noticia-->
+        <!--Cadastro de downloads-->
         <div class="container marginTopNav">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-center"> Cadastrar nova notícia</h1>
+                    <h1 class="text-center"> Cadastrar novo download</h1>
                     <div id="divResult" class="alert alert-dismissible text-center" role="alert">
                         <strong id="result"></strong>
                     </div>
                     <form method="POST" class="form-users" name="form-users" enctype="multipart/form-data">
                         <!--Cadastrat-->
-                        <input type="hidden" name="txtIdentificacao" id="txtIdentificacao" value="cadastrar">
                         <div class="row">
-                            <div class="form-group col-md-8">
-                                <label for="txtTitulo">Titulo</label>
+                            <div class="form-group col-md-1">
+                                <label for="txtTitulo" autofocus>Título</label>
+                            </div>
+                            <div class="form-group col-md-11">
                                 <input type="text" name="txtTitulo" id="txtTitulo" class="form-control" autofocus>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label for="txtData_Inicio">Inicio</label>
-                                <input type="date" name="txtData_Inicio" id="txtData_Inicio" class="form-control">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="txtData_Fim">Fim</label>
-                                <input type="date" name="txtData_Fim" id="txtData_Fim" class="form-control">
-                            </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label for="txtDescricao">Descrição</label>
-                                <textarea class="form-control" name="txtDescricao" id="txtDescricao" rows="7"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="txtInfo">OBS: Só são aceito arquivos de imagem! (.png .jpg. jpeg .gif) O restante dos arquivos é descartado e salvo apenas a notícia.</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <input class="form-control" type="file" id="imgUpload" name="imgUpload">
+                                <input class="form-control" type="file" id="arqUpload" name="arqUpload">
                             </div>
                         </div>
                         <div class="row">
@@ -123,7 +105,7 @@
         <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../../bootstrap/js/bootstrap.js"></script>
         <!--Validando formulario-->
-        <script type="text/javascript" src="../../script/usuarios/administrador/cadastrarNoticia.js"></script>
+        <script type="text/javascript" src="../../script/usuarios/administrador/cadastrarDownload.js"></script>
         <script>
             // Loader
             loading();

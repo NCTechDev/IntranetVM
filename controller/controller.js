@@ -57,6 +57,26 @@ var controller = {
         })
     },
 
+    // Downloads
+
+    cadastrarDownload: function (newPath ,req, res){
+        service.cadastrarDownload(newPath, req.body, function(error, status, message){
+            res.status(status).json({ message : message})
+        })
+    },
+
+    retornarDownload: function(res){
+        service.retornarDownload(function(error, download){
+            res.status(httpStatus.OK).json({ download:download})
+        })
+    },
+
+    excluirDownload: function(req, res){
+        service.excluirDownload(req.body, function(error, status, message){
+            res.status(status).json({ message: message})
+        })
+    },
+
     //Vagas
 
     cadastrarVaga: function (req, res){

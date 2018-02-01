@@ -6,6 +6,7 @@ const mysql = require('mysql'),
         host: 'localhost',
         user: 'nctech',
         password: 'nctech'
+        
     })
     
 connection.connect(function (err) {
