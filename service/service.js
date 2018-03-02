@@ -274,7 +274,25 @@ var service = {
                     callback(null, httpStatus.OK, 'Estado atualizado com sucesso!')
                 }
             })
-    }
+    },
+
+    /*Operações com Visitas*/
+
+    cadastrarVisita: function (data, callback){
+        let dataCadastro = new Date(),
+            sql = 'INSERT INTO visita (data_visita, data_cadastro, nomeDeFantasia, ' +
+                    'razao_social, cnpj, cidade, celular, celular2, fixo, email, observacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        connection.query(sql,
+            [data.txtData_Visita, dataCadastro, data.txtNomeFantasia, data.txtRazaoSocial, data.txtCnpj, data.selectCidade,
+             data.txtCelular, data.txtCelular2, data.txtFixo, data.txtEmail, data.txtObservacao],
+            function(error, result){
+                if (error){
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+                } else {
+                    callback(null, httpStatus.OK, 'Visita cadastrada com sucesso!')
+                }
+            })
+    },
 
 }   
 

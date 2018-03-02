@@ -14,7 +14,7 @@ function validacaoEdicao(){
     var d = dataAtual.getDate();
     var m = dataAtual.getMonth() + 1;
     var y = dataAtual.getFullYear();
-    var data = (d <= 9 ? '0' + d : d) + '-' + (m <= 9 ? '0' + m : m) + '-' + y;
+    var data = y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
 
     // Campos vazios
     if ($('#txtTitulo').val() == "" ||

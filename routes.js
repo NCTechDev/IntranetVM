@@ -73,6 +73,8 @@ module.exports = function (app, passport) {
             res.redirect('/administrador')
         else if (req.session.passport.user.nivel_acesso == '2')
             res.redirect('/rh')
+        else if (req.session.passport.user.nivel_acesso == '3')
+            res.redirect('/posvendas')
         else
             res.redirect('/logout')
     })
@@ -196,6 +198,16 @@ module.exports = function (app, passport) {
     app.post('/mudarEstado/:idvaga', isLoggedIn, isAuthorized(['1','2']), function(req, res){
         let idvaga = req.params.idvaga;
         controller.mudarEstado(idvaga, req, res)
+    })
+
+     /* Nivel de Acesso 3 : POS VENDAS   */
+
+    app.get('/posvendas', isLoggedIn, isAuthorized(['1','3']), function (req, res) {
+        res.sendFile(path + 'usuarios/posvendas/cadastrarVisita.html')
+    })
+
+    app.post('/cadastrarVisita', isLoggedIn, isAuthorized(['1','3']), function (req, res){
+        controller.cadastrarVisita(req, res)
     })
 
     /*Páginas*/

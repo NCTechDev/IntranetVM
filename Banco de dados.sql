@@ -45,3 +45,21 @@ CREATE TABLE download (
         
 	PRIMARY KEY(iddownload)
 );
+
+CREATE TABLE visita (
+
+		idvisita INTEGER NOT  NULL AUTO_INCREMENT,
+        data_visita TIMESTAMP NOT NULL,
+		data_cadastro TIMESTAMP NOT NULL,
+        nomeDeFantasia VARCHAR(100) NOT NULL,
+		razao_social VARCHAR(100) NOT NULL,
+		cnpj VARCHAR(50),
+		cidade VARCHAR(25) NOT NULL,
+		celular VARCHAR(25),
+		celular2 VARCHAR(25),
+		fixo VARCHAR(25),
+		email VARCHAR(50) NOT NULL,
+		observacao LONGTEXT,
+
+		PRIMARY KEY(idvisita)
+);

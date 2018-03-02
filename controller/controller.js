@@ -113,7 +113,16 @@ var controller = {
         service.mudarEstado(idvaga, req.body, function(error, status, message){
             res.status(status).json({ message : message})
         })
-    }
+    },
+
+    // Visitas
+
+    cadastrarVisita: function (req, res){
+        service.cadastrarVisita(req.body, function(error, status, message){
+            res.status(status).json({message : message})
+        })
+    },
+
 
 }
 
