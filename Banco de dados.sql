@@ -52,6 +52,7 @@ CREATE TABLE visita (
         data_visita TIMESTAMP NOT NULL,
 		data_cadastro TIMESTAMP NOT NULL,
         nomeDeFantasia VARCHAR(100) NOT NULL,
+		representante VARCHAR(100) NOT NULL,
 		razao_social VARCHAR(100) NOT NULL,
 		cnpj VARCHAR(50),
 		cidade VARCHAR(25) NOT NULL,

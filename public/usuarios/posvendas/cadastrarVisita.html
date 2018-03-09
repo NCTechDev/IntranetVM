@@ -34,10 +34,10 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item"><li class="nav-item">
-                        <a class="nav-link pull-right" href="">Cadastrar Visita</a>
+                        <a class="nav-link pull-right" href="posvendas">Cadastrar Visita</a>
                     </li>
                     <li class="nav-item"><li class="nav-item">
-                        <a class="nav-link pull-right" href="">Relatórios</a>
+                        <a class="nav-link pull-right" href="relatoriosVisitas">Relatórios</a>
                     </li>
                     <li class="nav-item"><li class="nav-item">
                         <a class="nav-link pull-right" href="logout">Sair</a>
@@ -60,7 +60,11 @@
                                 <label for="txtData_Visita">Data Visita *</label>
                                 <input type="date" name="txtData_Visita" id="txtData_Visita" class="form-control">
                             </div>
-                            <div class="form-group col-md-9">
+                            <div class="form-group col-md-3">
+                                    <label for="selectRepresentante">Representante</label>
+                                    <select name="selectRepresentante" id="selectRepresentante" class="form-control" autofocus></select>
+                                </div>
+                            <div class="form-group col-md-6">
                                 <label for="txtNomeFantasia">Nome de Fantasia</label>
                                 <input type="text" name="txtNomeFantasia" id="txtNomeFantasia" class="form-control" autofocus>
                             </div>
@@ -114,13 +118,11 @@
                                 <input type="reset" class="btn btn-danger" value="Limpar campos">
                             </div>
                         </div>
-                    </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
         <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../../js/wow.min.js"></script>
@@ -142,6 +144,12 @@
             $.getJSON('../../script/usuarios/posvendas/cidades.json', function(data){
                 for(index = 0; index < data.length; index++) {
                     $("#selectCidade").append('<option value="' + data[index].nome + '">' + data[index].nome + '</option>')
+                }
+            })
+
+            $.getJSON('../../script/usuarios/posvendas/representante.json', function(data){
+                for(index = 0; index < data.length; index++) {
+                    $("#selectRepresentante").append('<option value="' + data[index].nome + '">' + data[index].nome + '</option>')
                 }
             })
             

@@ -13,7 +13,6 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 app.use(express.static("public"));
-app.use(express.static("uploads"));
 app.use(session({
       name: 'intranetvm',
       secret: keySecret,

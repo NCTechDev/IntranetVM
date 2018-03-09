@@ -210,6 +210,19 @@ module.exports = function (app, passport) {
         controller.cadastrarVisita(req, res)
     })
 
+    app.get('/relatoriosVisitas', isLoggedIn, isAuthorized(['1','3']), function (req, res) {
+        res.sendFile(path + 'usuarios/posvendas/relatoriosVisita.html')
+    })
+
+    app.get('/retornarVisita', isLoggedIn, isAuthorized(['1','3']), function(req, res){
+        controller.retornarVisita(req.query, res)
+    })
+
+    app.get('/retornarVisitaPorId/:idvisita', isLoggedIn, isAuthorized(['1','3']), function(req, res){
+        let idvisita = req.params.idvisita;
+        controller.retornarVisitaPorID(idvisita, res)
+    })
+
     /*Páginas*/
     /* Página de Downloads */
     app.route('/downloadsPag')

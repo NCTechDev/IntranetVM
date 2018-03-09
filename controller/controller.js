@@ -116,12 +116,25 @@ var controller = {
     },
 
     // Visitas
-
     cadastrarVisita: function (req, res){
         service.cadastrarVisita(req.body, function(error, status, message){
             res.status(status).json({message : message})
         })
     },
+
+    retornarVisita: function(visita, res){
+        service.retornarVisita(visita, function(error, visita){
+            res.status(httpStatus.OK).json({ visita: visita })
+        })
+    },
+
+    retornarVisitaPorID: function(idvisita, res){
+        service.retornarVisitaPorID(idvisita, function(error, visita){
+            res.status(httpStatus.OK).json({ visita : visita})
+        })
+    },
+
+
 
 
 }
