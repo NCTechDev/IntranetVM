@@ -295,13 +295,29 @@ var service = {
     },
 
     retornarVisita: function(data, callback){
-        let sql = 'SELECT DATE_FORMAT(data_visita, "%Y-%m-%d") AS data_visita, ' +
-            'DATE_FORMAT(data_cadastro, "%Y-%m-%d") AS data_cadastro, idvisita, nomeDeFantasia, razao_social, cnpj, ' +
+        let sql = 'SELECT DATE_FORMAT(data_visita, "%d-%m-%Y") AS data_visita, ' +
+            'DATE_FORMAT(data_cadastro, "%d-%m-%Y") AS data_cadastro, idvisita, nomeDeFantasia, razao_social, cnpj, ' +
             'cidade, celular, celular2, fixo, email, observacao, representante ' +
             'FROM visita WHERE representante =? AND data_visita <=? AND data_visita >=? ' +
-            'ORDER BY idvisita DESC'
+            'ORDER BY data_visita ASC'
         //*Query no banco de Dados
         connection.query(sql,[data.selectRepresentante, data.txtData_Fim,data.txtData_Inicio], function(error, result){
+            if(error){
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente Novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
+    },
+
+    retornarTodasVisitas: function(data, callback){
+        let sql = 'SELECT DATE_FORMAT(data_visita, "%d-%m-%Y") AS data_visita, ' +
+            'DATE_FORMAT(data_cadastro, "%d-%m-%Y") AS data_cadastro, idvisita, nomeDeFantasia, razao_social, cnpj, ' +
+            'cidade, celular, celular2, fixo, email, observacao, representante ' +
+            'FROM visita WHERE data_visita <=? AND data_visita >=? ' +
+            'ORDER BY data_visita ASC'
+        //*Query no banco de Dados
+        connection.query(sql,[data.txtData_Fim,data.txtData_Inicio], function(error, result){
             if(error){
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente Novamente.')
             } else {

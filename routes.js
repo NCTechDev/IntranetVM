@@ -218,6 +218,10 @@ module.exports = function (app, passport) {
         controller.retornarVisita(req.query, res)
     })
 
+    app.get('/retornarTodasVisitas', isLoggedIn, isAuthorized(['1','3']), function(req, res){
+        controller.retornarTodasVisitas(req.query, res)
+    })
+
     app.get('/retornarVisitaPorId/:idvisita', isLoggedIn, isAuthorized(['1','3']), function(req, res){
         let idvisita = req.params.idvisita;
         controller.retornarVisitaPorID(idvisita, res)

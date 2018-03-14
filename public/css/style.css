@@ -69,6 +69,7 @@ section.login .btn:hover {
 }
 
 div.jumbotron {
+    background-color:#f0f0f0;
     margin-bottom: 0px;
 }
 
@@ -100,3 +101,6 @@ button.item-setores {
     0% {transform: rotate(0deg)}
     100% {transform: rotate(360deg)}
 }
+
+
+

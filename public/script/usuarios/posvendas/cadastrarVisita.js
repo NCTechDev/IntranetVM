@@ -19,7 +19,9 @@ function validacaoRegistro(){
     // Campos vazios
     if ($('#txtRazaoSocial').val() == "" ||
         $('#txtData_Visita').val() == '' ||
-        $('#txtEmail').val() == "" ){
+        $('#txtEmail').val() == "" ||
+        $('#selectRepresentante').val() == "Selecione" ||
+        $('#selectCidade').val() == "Selecione" ){
         msgErrors = "Verifique se os campos obrigatórios estão preenchidos!"
     }else if ( data < $('#txtData_Visita').val() ){
         msgErrors = "Data de visita deve ser menor ou igual a data atual!"

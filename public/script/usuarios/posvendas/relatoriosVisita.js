@@ -41,12 +41,17 @@ function validacaoPesquisa(){
         msgErrors = "Data de inicio deve ser inferior a data de término!"
     }
 
+
     if (msgErrors) {
         enviarMsg(msgErrors)
     } else {
-        enviarMsg(msgErrors)
-        $('#divResult').removeClass("alert-danger")
-        enviarDados()
+        if($('#selectRepresentante').val() == "Todos" ){
+            retornarTodos()
+        }else{
+            enviarMsg(msgErrors)
+            $('#divResult').removeClass("alert-danger")
+            enviarDados()
+        }     
     }
     
 }
@@ -62,6 +67,19 @@ function enviarDados(){
  
     $.ajax({
         url: "/retornarVisita",
+        type: "get",
+        dataType: "json",
+        data:$("form").serialize(),
+        assync: true
+    }).done(function (calback){
+        criarTabela(calback.visita)
+    })
+}
+
+function retornarTodos(){
+
+    $.ajax({
+        url: "/retornarTodasVisitas",
         type: "get",
         dataType: "json",
         data:$("form").serialize(),
@@ -88,7 +106,6 @@ function criarTabela(visita) {
                 "<td>" + visita[index].celular + "</td>" +
                 "<td>" + visita[index].fixo + "</td>" +
                 "<td>" + visita[index].email + "</td>" +
-                "<td>" + visita[index].representante + "</td>" +
                 "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-visitas' role='button' onclick='setarValores(" + JSON.stringify(visita[index].idvisita)+");'>Exibir</button></td>" +
                 "</tr>")
             appendTable(newTrItem)

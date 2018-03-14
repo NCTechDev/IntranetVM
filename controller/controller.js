@@ -128,6 +128,12 @@ var controller = {
         })
     },
 
+    retornarTodasVisitas: function(visita, res){
+        service.retornarTodasVisitas(visita, function(error, visita){
+            res.status(httpStatus.OK).json({ visita: visita })
+        })
+    },
+
     retornarVisitaPorID: function(idvisita, res){
         service.retornarVisitaPorID(idvisita, function(error, visita){
             res.status(httpStatus.OK).json({ visita : visita})
