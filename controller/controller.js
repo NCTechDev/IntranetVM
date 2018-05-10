@@ -140,6 +140,13 @@ var controller = {
         })
     },
 
+    // Usuarios
+
+    retornarUsuarios: function(res){
+        service.retornarUsuarios(function(error, usuarios){
+            res.status(httpStatus.OK).json({usuarios:usuarios})
+        })
+    },
 
 
 

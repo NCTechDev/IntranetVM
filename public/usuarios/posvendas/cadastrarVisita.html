@@ -61,12 +61,29 @@
                                 <input type="date" name="txtData_Visita" id="txtData_Visita" class="form-control">
                             </div>
                             <div class="form-group col-md-3">
-                                    <label for="selectRepresentante">Representante *</label>
-                                    <select name="selectRepresentante" id="selectRepresentante" class="form-control" autofocus>
-                                        <option selected>Selecione</option>
-                                    </select>
-                                </div>
+                                <label for="selectRepresentante">Representante</label>
+                                <input type="text" name="txtRepresentante" id="txtRepresentante" class="form-control" autofocus readonly>
+                            </div>
                             <div class="form-group col-md-6">
+                                <label for="selecUnidade">Unidade *</label>
+                                <select name="selectUnidade" id="selectUnidade" class="form-control" autofocus>
+                                    <option selected>Selecione</option>
+                                    <option value="Fiat Pouso Alegre">Fiat Pouso Alegre</option>
+                                    <option value="Fiat Poços de Caldas">Fiat Poços de Caldas</option>
+                                    <option value="Fiat Alfenas">Fiat Alfenas</option>
+                                    <option value="Fiat Itajubá">Fiat Itajubá</option>
+                                    <option value="Renault Pouso Alegre">Renault Pouso Alegre</option>
+                                    <option value="Renault Poços de Caldas">Renault Poços de Caldas</option>
+                                    <option value="Renault Varginha">Renault Varginha</option>
+                                    <option value="Nissan Varginha">Nissan Varginha</option>
+                                    <option value="Nissan Sete Lagoas">Nissan Sete Lagoas</option>
+
+                                </select>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
                                 <label for="txtNomeFantasia">Nome de Fantasia</label>
                                 <input type="text" name="txtNomeFantasia" id="txtNomeFantasia" class="form-control" autofocus>
                             </div>
@@ -150,12 +167,10 @@
                     $("#selectCidade").append('<option value="' + data[index].nome + '">' + data[index].nome + '</option>')
                 }
             })
+            
+            var nameUser = sessionStorage.getItem("user").replace('.'," ").toUpperCase();
 
-            $.getJSON('../../script/usuarios/posvendas/representante.json', function(data){
-                for(index = 0; index < data.length; index++) {
-                    $("#selectRepresentante").append('<option value="' + data[index].nome + '">' + data[index].nome + '</option>')
-                }
-            })
+            $("#txtRepresentante").val(nameUser)
             
 
         </script>

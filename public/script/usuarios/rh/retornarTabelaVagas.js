@@ -28,6 +28,7 @@ function criarTable(vaga) {
                 "<td>" + vaga[index].data_publicacao + "</td>" +
                 "<td>" + vaga[index].titulo + "</td>" +
                 "<td>" + vaga[index].descricao + "</td>" +
+                "<td>" + vaga[index].unidade + "</td>"+
                 "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-vagas' role='button' onclick='setarValores(" + JSON.stringify(idvaga) + ");'>Editar</button></td>" +
                 "<td><button type='button' class='btn btn-danger' onclick='mudarEstado(" + JSON.stringify(idvaga) + "," + JSON.stringify(estado) + ");' return false;'>Desabilitar</button></td>" +
                 "</tr>")
@@ -41,6 +42,7 @@ function criarTable(vaga) {
                     "<td>" + vaga[index].data_publicacao + "</td>" +
                     "<td>" + vaga[index].titulo + "</td>" +
                     "<td>" + vaga[index].descricao + "</td>" +
+                    "<td>" + vaga[index].unidade + "</td>"+
                     "<td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-vagas' role='button' onclick='setarValores(" + JSON.stringify(idvaga) + ");'>Editar</button></td>" +
                     "<td><button type='button' class='btn btn-success' onclick='mudarEstado(" + JSON.stringify(idvaga) + "," + JSON.stringify(estado) + ");' return false;'>Habilitar</button></td>" +
                     "</tr>")

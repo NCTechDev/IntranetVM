@@ -1,9 +1,19 @@
 //Form submit
 jQuery(document).ready(function (){
+    $.ajax({
+        url: "/retornarUsuarios",
+        type: "get",
+        dataType: "json",
+        assync: true
+    }).done(function (calback){
+        criarSelect(calback.usuarios)
+    })
+
     $('.form-relatorios').submit(function (event){
         event.preventDefault()
         validacaoPesquisa()
     })
+
 })
 
 var headers = {
@@ -24,6 +34,32 @@ var headers = {
 
 var fileTitle = 'Visitas'; // or 'my-unique-title'
 
+function criarSelect(usuarios){
+
+    for(i = 0; i < usuarios.length; i++){
+        if(sessionStorage.getItem("user") == usuarios[i].login){
+            break;
+        }
+    }
+
+    if(usuarios[i].nivel_acesso == 1 || usuarios[i].nivel_acesso == 4){
+        $("#selectRepresentante").append('<option value=Todos>TODOS</option>')
+        for(x = 0; x < usuarios.length; x++){
+
+            if(usuarios[x].nivel_acesso == 3){
+                var nameUser = usuarios[x].login.replace('.'," ").toUpperCase();
+                $("#selectRepresentante").append('<option value="' + nameUser + '">' + nameUser + '</option>')
+            }
+
+        }
+    }else{
+
+        var nameUser = usuarios[i].login.replace('.'," ").toUpperCase();
+        $("#selectRepresentante").append('<option value="' + nameUser + '">' + nameUser + '</option>')
+
+    }
+}
+
 function validacaoPesquisa(){
     //Mensagens de erros
     msgErrors = ""
@@ -31,8 +67,7 @@ function validacaoPesquisa(){
 
     // Campos vazios
     if ($('#txtData_Inicio').val() == '' ||
-        $('#txtData_Fim').val() == '' ||
-        $('#selectRepresentante').val() == "Representante" ){
+        $('#txtData_Fim').val() == '' ){
         msgErrors = "Verifique se os campos obrigatórios estão preenchidos!"
     }
 
@@ -46,6 +81,8 @@ function validacaoPesquisa(){
         enviarMsg(msgErrors)
     } else {
         if($('#selectRepresentante').val() == "Todos" ){
+            enviarMsg(msgErrors)
+            $('#divResult').removeClass("alert-danger")
             retornarTodos()
         }else{
             enviarMsg(msgErrors)
@@ -187,6 +224,7 @@ function setarValores(idvisita){
         $("#txtData_Cadastro").val(callback.visita[0].data_cadastro)
         $("#txtNomeFantasia").val(callback.visita[0].nomeDeFantasia)
         $("#txtRepresentante").val(callback.visita[0].representante)
+        $("#txtUnidade").val(callback.visita[0].unidade)
         $("#txtRazaoSocial").val(callback.visita[0].razao_social)
         $("#txtCnpj").val(callback.visita[0].cnpj)
         $("#txtCidade").val(callback.visita[0].cidade)

@@ -191,10 +191,10 @@ var service = {
     cadastrarVaga: function (data, callback){
         let dataAtual = new Date(),
             estado = 'aberto',
-            sql = 'INSERT INTO vaga (data_publicacao, titulo, descricao, ' +
-                    'estado) VALUES (?, ?, ?, ?)'
+            sql = 'INSERT INTO vaga (data_publicacao, titulo, descricao, unidade, ' +
+                    'estado) VALUES (?, ?, ?, ?, ?)'
         connection.query(sql,
-            [dataAtual, data.txtTitulo, data.txtDescricao, estado],
+            [dataAtual, data.txtTitulo, data.txtDescricao, data.selectUnidade, estado],
             function(error, result){
                 if (error){
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
@@ -205,7 +205,7 @@ var service = {
     },
 
     retornarVagas: function(callback){
-        let sql = 'SELECT titulo, descricao FROM vaga WHERE estado = "aberto" ORDER BY idvaga DESC' 
+        let sql = 'SELECT titulo, descricao, unidade FROM vaga WHERE estado = "aberto" ORDER BY idvaga DESC' 
         //Query no banco de Dados
         connection.query(sql, function (error, result) {
             if(error) {
@@ -218,7 +218,7 @@ var service = {
 
     retornarTableVaga: function(callback){
         let sql = 'SELECT DATE_FORMAT(data_publicacao, "%d/%m/%Y") AS data_publicacao, ' +
-            'idvaga, titulo, descricao, estado ' +
+            'idvaga, titulo, descricao, unidade, estado ' +
             'FROM vaga ORDER BY idvaga DESC'
         //*Query no banco de Dados
         connection.query(sql, function(error, result){
@@ -232,7 +232,7 @@ var service = {
 
     retornarVagaPorID: function(idvaga, callback){
         let sql = 'SELECT DATE_FORMAT(data_publicacao, "%Y-%m-%d") AS data_publicacao, ' +
-            'titulo, descricao' +
+            'titulo, descricao, unidade' +
             ' FROM vaga WHERE idvaga = ?'
         //Query no banco de dados
         connection.query(sql,[idvaga], function(error, result){
@@ -246,11 +246,11 @@ var service = {
 
     editarVaga: function(data, callback){
         let sql = 'UPDATE vaga SET ' + 
-                'titulo=?, descricao=?' + 
+                'titulo=?, descricao=?, unidade=?' + 
                 'WHERE idvaga=?'
         //Query no banco de dados
         connection.query(sql, 
-            [data.txtTitulo, data.txtDescricao, data.txtIdVaga],
+            [data.txtTitulo, data.txtDescricao, data.selectUnidade, data.txtIdVaga],
             function(error, result){
                 if (error) {
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
@@ -281,10 +281,10 @@ var service = {
     cadastrarVisita: function (data, callback){
         let dataCadastro = new Date(),
             sql = 'INSERT INTO visita (data_visita, data_cadastro, nomeDeFantasia, ' +
-                    'razao_social, cnpj, cidade, celular, celular2, fixo, email, observacao, representante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                    'razao_social, cnpj, cidade, celular, celular2, fixo, email, observacao, representante, unidade) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         connection.query(sql,
             [data.txtData_Visita, dataCadastro, data.txtNomeFantasia, data.txtRazaoSocial, data.txtCnpj, data.selectCidade,
-             data.txtCelular, data.txtCelular2, data.txtFixo, data.txtEmail, data.txtObservacao, data.selectRepresentante],
+             data.txtCelular, data.txtCelular2, data.txtFixo, data.txtEmail, data.txtObservacao, data.txtRepresentante, data.selectUnidade],
             function(error, result){
                 if (error){
                     callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
@@ -329,7 +329,7 @@ var service = {
     retornarVisitaPorID: function(idvisita, callback){
         let sql = 'SELECT DATE_FORMAT(data_visita, "%Y-%m-%d") AS data_visita, ' +
             'DATE_FORMAT(data_cadastro, "%Y-%m-%d") AS data_cadastro, idvisita, nomeDeFantasia, razao_social, cnpj, ' +
-            'cidade, celular, celular2, fixo, email, observacao, representante ' +
+            'cidade, celular, celular2, fixo, email, observacao, representante, unidade ' +
             'FROM visita WHERE idvisita =? ORDER BY idvisita DESC'
         //*Query no banco de Dados
         connection.query(sql,[idvisita], function(error, result){
@@ -341,6 +341,18 @@ var service = {
         })
 
 
+    },
+
+    retornarUsuarios: function(callback){
+        let sql = 'SELECT login, nivel_acesso FROM usuarios ORDER BY login'
+        //Query no banco de Dados
+        connection.query(sql, function (error, result) {
+            if(error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos! Tente novamente.')
+            } else {
+                callback(null, result)
+            }
+        })
     }
 
 }   

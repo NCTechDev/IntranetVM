@@ -11,7 +11,7 @@ function validacaoEdicao(){
         
             // Campos vazios
             if ($('#txtTitulo').val() == "" ||
-                $('#txtDescricao').val() == "" 
+                $('#txtDescricao').val() == ""
             ){
                 msgErrors = "Todos Campos são obrigatórios"
             }
@@ -42,6 +42,7 @@ function setarValores(idvaga){
         $("#txtIdVaga").val(idvaga)
         $("#txtTitulo").val(callback.vaga[0].titulo)
         $("#txtDescricao").val(callback.vaga[0].descricao)
+        $("#selectUnidade").val(callback.vaga[0].unidade)
     })
 }
 

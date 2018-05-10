@@ -20,7 +20,7 @@ function validacaoRegistro(){
     if ($('#txtRazaoSocial').val() == "" ||
         $('#txtData_Visita').val() == '' ||
         $('#txtEmail').val() == "" ||
-        $('#selectRepresentante').val() == "Selecione" ||
+        $('#selectUnidade').val() == "Selecione" ||
         $('#selectCidade').val() == "Selecione" ){
         msgErrors = "Verifique se os campos obrigatórios estão preenchidos!"
     }else if ( data < $('#txtData_Visita').val() ){

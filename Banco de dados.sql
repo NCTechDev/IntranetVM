@@ -32,6 +32,7 @@ CREATE TABLE vaga (
 		titulo VARCHAR(100) NOT NULL,
 		descricao LONGTEXT NOT NULL,
 		estado VARCHAR(10) NOT NULL,
+		unidade VARCHAR(50) NOT NULL,
 
 		PRIMARY KEY(idvaga)
 );
@@ -60,6 +61,7 @@ CREATE TABLE visita (
 		celular2 VARCHAR(25),
 		fixo VARCHAR(25),
 		email VARCHAR(50) NOT NULL,
+		unidade VARCHAR(50) NOT NULL,
 		observacao LONGTEXT,
 
 		PRIMARY KEY(idvisita)

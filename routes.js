@@ -73,7 +73,7 @@ module.exports = function (app, passport) {
             res.redirect('/administrador')
         else if (req.session.passport.user.nivel_acesso == '2')
             res.redirect('/rh')
-        else if (req.session.passport.user.nivel_acesso == '3')
+        else if (req.session.passport.user.nivel_acesso == '3' || req.session.passport.user.nivel_acesso == '4')
             res.redirect('/posvendas')
         else
             res.redirect('/logout')
@@ -200,29 +200,31 @@ module.exports = function (app, passport) {
         controller.mudarEstado(idvaga, req, res)
     })
 
-     /* Nivel de Acesso 3 : POS VENDAS   */
+     /* Nivel de Acesso 3 e 4 : POS VENDAS   */
+     /* 3 Acesso restrito */
+     /* 4 Acesso full */
 
-    app.get('/posvendas', isLoggedIn, isAuthorized(['1','3']), function (req, res) {
+    app.get('/posvendas', isLoggedIn, isAuthorized(['1','3','4']), function (req, res) {
         res.sendFile(path + 'usuarios/posvendas/cadastrarVisita.html')
     })
 
-    app.post('/cadastrarVisita', isLoggedIn, isAuthorized(['1','3']), function (req, res){
+    app.post('/cadastrarVisita', isLoggedIn, isAuthorized(['1','3','4']), function (req, res){
         controller.cadastrarVisita(req, res)
     })
 
-    app.get('/relatoriosVisitas', isLoggedIn, isAuthorized(['1','3']), function (req, res) {
+    app.get('/relatoriosVisitas', isLoggedIn, isAuthorized(['1','3','4']), function (req, res) {
         res.sendFile(path + 'usuarios/posvendas/relatoriosVisita.html')
     })
 
-    app.get('/retornarVisita', isLoggedIn, isAuthorized(['1','3']), function(req, res){
+    app.get('/retornarVisita', isLoggedIn, isAuthorized(['1','3','4']), function(req, res){
         controller.retornarVisita(req.query, res)
     })
 
-    app.get('/retornarTodasVisitas', isLoggedIn, isAuthorized(['1','3']), function(req, res){
+    app.get('/retornarTodasVisitas', isLoggedIn, isAuthorized(['1','4']), function(req, res){
         controller.retornarTodasVisitas(req.query, res)
     })
 
-    app.get('/retornarVisitaPorId/:idvisita', isLoggedIn, isAuthorized(['1','3']), function(req, res){
+    app.get('/retornarVisitaPorId/:idvisita', isLoggedIn, isAuthorized(['1','3','4']), function(req, res){
         let idvisita = req.params.idvisita;
         controller.retornarVisitaPorID(idvisita, res)
     })
@@ -241,7 +243,13 @@ module.exports = function (app, passport) {
         ){ 
             res.sendFile(path + 'vagas.html')
         })
-    
+
+    /* Página de Chamados */
+    app.route('/chamados')
+        .get(function (req,res
+        ){ 
+            res.sendFile(path + 'chamadosPag.html')
+        })
     /*Retorno de Noticias, vagas e downloads*/
     app.get('/retornarnoticia', function (req, res) {
         controller.retornarNoticias(res)
@@ -316,6 +324,11 @@ module.exports = function (app, passport) {
             req.logout()
             res.redirect('/login')
         })
+    })
+
+    /*Retornar users*/
+    app.get('/retornarUsuarios', function (req, res){
+        controller.retornarUsuarios(res)
     })
         
 }

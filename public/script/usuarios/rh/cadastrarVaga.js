@@ -13,7 +13,8 @@ function validacaoRegistro(){
 
     // Campos vazios
     if ($('#txtTitulo').val() == "" ||
-        $('#txtDescricao').val() == "" 
+        $('#txtDescricao').val() == "" ||
+        $('#selectUnidade').val() == "Selecione"
     ){
         msgErrors = "Todos Campos são obrigatórios"
     }

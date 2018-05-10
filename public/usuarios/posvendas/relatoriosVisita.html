@@ -40,6 +40,9 @@
                         <a class="nav-link pull-right" href="relatoriosVisitas">Relatórios</a>
                     </li>
                     <li class="nav-item"><li class="nav-item">
+                        <a class="nav-link pull-right" href="https://convertio.co/pt/csv-xlsx/" target="_blank">Conversor Excel</a>
+                    </li>
+                    <li class="nav-item"><li class="nav-item">
                         <a class="nav-link pull-right" href="logout">Sair</a>
                     </li>
                 </ul>
@@ -56,8 +59,6 @@
                         <div class="row">
                             <div class="form-group col-md-3">
                                 <select name="selectRepresentante" id="selectRepresentante" class="form-control" autofocus>
-                                    <option selected>Representante</option>
-                                    <option>Todos</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
@@ -131,6 +132,12 @@
                                     <div class="form-group col-md-5">
                                         <label for="txtData_Cadastro">Data Cadastro</label>
                                         <input type="date" name="txtData_Cadastro" id="txtData_Cadastro" class="form-control" autofocus disabled>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="txtUnidade">Unidade</label>
+                                        <input type="text" name="txtUnidade" id="txtUnidade" class="form-control" autofocus disabled>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -209,11 +216,7 @@
             loading();
             // Animation WOW
             new WOW().init();
-            $.getJSON('../../script/usuarios/posvendas/representante.json', function(data){
-                for(index = 0; index < data.length; index++) {
-                    $("#selectRepresentante").append('<option value="' + data[index].nome + '">' + data[index].nome + '</option>')
-                }
-            })
+
         </script>
     </body>
 </html>
