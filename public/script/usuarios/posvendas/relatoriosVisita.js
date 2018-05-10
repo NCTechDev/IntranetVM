@@ -37,7 +37,7 @@ var fileTitle = 'Visitas'; // or 'my-unique-title'
 function criarSelect(usuarios){
 
     for(i = 0; i < usuarios.length; i++){
-        if(sessionStorage.getItem("user") == usuarios[i].login){
+        if(localStorage.getItem("user") == usuarios[i].login){
             break;
         }
     }

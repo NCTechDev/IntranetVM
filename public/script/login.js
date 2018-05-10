@@ -44,7 +44,7 @@ function enviarDados(){
         async: true,
         data: $("form").serialize()
     }).done(function(){
-        sessionStorage.setItem('user', $('#txtUsuario').val()),
+        localStorage.setItem('user', $('#txtUsuario').val()),
         window.location = "/access"
     }).fail(function (callback){
         callbackMsg = JSON.parse(callback.responseText)
